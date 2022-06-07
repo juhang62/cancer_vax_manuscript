@@ -73,16 +73,16 @@ Cancer neoantigen vaccines have emerged as a promising way to stimulate
 the immune system to fight cancer. We present a phase plane analysis
 of a simple model to understand immunological mechanisms of
 cancer neoantigen vaccines. Analytical results are obtained for
-two widely used killing terms of tumor cells by immune cells:
+two widely used functions that represent killing rate of tumor cells by immune cells:
 the law of mass action and the dePillis-Radunskaya Law. For the law
-of mass action killing, we derive a result that offers an alternative
+of mass action killing, we derive a result that offers an
 explanation of sneaking through of a slowly growing tumor. Moreover,
 the existence of a unique periodic solution is shown. The dePillis-Radunskaya
-Law offers richer dynamics, for which tumor elimination and uncontrolled growth are both present. We show that the elimination of a tumor depends
+Law offers richer dynamics, for which tumor elimination and uncontrolled growth are both present. We show that tumor elimination depends
 on initial conditions, which provides support for using cancer vaccine
 as an adjuvant therapy after the primary tumor is reduced by surgery
 or radiotherapy. A sufficient condition for uncontrolled tumor growth 
-is also derived for the dePillis-Radunskaya Law. 
+is also derived with assumption of the dePillis-Radunskaya Law. 
 \end{abstract}
 
 \begin{keyword}
@@ -97,35 +97,32 @@ cancer vaccines \sep XX \sep XX
 \section{Introduction}
 
 The immune system plays an important role in controlling tumor growth
-and progression to malignancy \citep{Waldman2020}. Innate and adaptive
+and in preventing or slowing the progression to malignancy \citep{Waldman2020}. Innate and adaptive
 immune responses are two types of immune response. The immune system
 launches these responses to fight against cancer. As a tumor acquires
 cancerous mutation, it starts expression of non-synonymous mutations
 that produces tumor-specific antigens called neoantigen \citep{Peng2019}.
 Neoantigen can be recognized by the immune system and induces adaptive
 immune responses (elaborate?). This includes proliferation of T cells
-that specifically kill the tumor cells associated with the particular antigen.
-However, the immune response naturally induced may not be present
-or sufficient in cancer patients to control tumor growth. Immunotherapy
-is a type of cancer treatments that assists the immune system in fighting
+that specifically reduce population of the tumor cells associated with the particular antigen.
+However, the immune response may not be naturally induced in cancer patients or the response is  insufficient to control tumor growth. Immunotherapy enhances the human immune functions to fight
 against cancer. With the advance in genome sequencing, neoantigen
 cancer vaccine, that is designed to target specifically tumor cells
-by recognizing their neoantigen, has emerged as a promising way to
-treat cancers. This modality, which works by injecting synthetic tumor-specific
-peptides into the patient to activate peptide-specific T cells, is
+by recognizing their neoantigen, has emerged as a promising treatment for cancers. This modality, which works by injecting synthetic tumor-specific
+peptides into the patient to activate T cells, is
 highly personalized and has shown its strength in avoiding auto-immune
 side effects \citep{Nelde2021} and achieving desirable clinical outcomes in
-treating different cancers (such as FDA approved prostate cancer vaccines)
+treating different cancers (such as the FDA approved prostate cancer vaccine)
 \citep[e.g.][]{Ott2017,Pan2018,Peng2019}. 
 
 The complexity of the immune system and its interactions with tumors
 makes it challenging to understand their dynamics and design optimal
 immunotherapy treatments. Mathematical modeling is valuable in enhancing
 our understanding of tumor-immune interactions. Numerous successes
-of mathematical modeling can be found in the vast literature on this
-subject \citep[e.g. see reviews by][and references therein]{Eftimie2016,Mahlbacher2019,Nukala2021}. Mathematical models can be used for hypothesis
-generation because the mechanisms accounted for by the models. Their
-quantitative nature also make them useful in making predictions and
+of mathematical modeling can be found in the vast literature on related
+subject \citep[e.g., see reviews by][and references therein]{Eftimie2016,Mahlbacher2019,Nukala2021}. Mathematical models can be used for hypothesis
+generation because of the mechanisms accounted for by the models. The
+quantitative nature of mathematical models also make them useful in making predictions and
 optimizing treatments. 
 
 On the topic of modeling immunotherapy or cancer immunology, ordinary
@@ -133,27 +130,23 @@ differential equations (ODEs) is arguably the most popular choice
 given its simplicity and analytical or computational tractability
 \citep{Eftimie2010}. The size of ODE models ranges from one or few
 equations to more than a dozen equations. Even in developing a large
-ODE system, it is inevitable that the modeler has to focus on certain
+ODE system, it is inevitable that the modeler must focus on certain
 aspects of cancer immunology or immunotherapy. One of the most important
 aspects is the interaction between the tumor and the immune system, especially
-how tumor cells are reduced by the immune system. For example, predictor-prey
-systems are often used to model this interaction where tumor cells
-are prey and effective immune cells are predators \citep{Hamilton2022}. The growth of tumor is well studied in mathematical
-models, which takes form such as exponential, logistic and Gompertizian
+how the immune system works to kill or control the growth of tumor cells. For example, predator-prey
+systems, initially from the field of ecology, are often used to model this interaction where tumor cells
+are the prey and effector cells are the predators \citep{Hamilton2022}. Many mathematical
+models have been developed to study tumor growth, which takes forms such as exponential, logistic and Gompertizian
 growth \citep{Murphy2016}. In contrast, the killing of tumor cells
-by immune cells are less often studied. It is frequently modeled using
-the law of mass action, popularized by the seminal paper by \citet{KUZNETSOV1994}.
-Another common choice of the killing term is the so-called dePillis-Radunskaya
-Law proposed by \citet{dePillis2014} who showed it fits some data
-better (word choice?). The law of mass action based on the well-mixed
-assumption stems from chemical reactions. To our knowledge, the dePillis-Radunskaya
-Law is purely phenomenological. In fact, there is no governing laws
-of biology {[}{]}. Both choices have some merits and shine in different
+by immune cells are less studied. It has been modeled using
+the law of mass action, which became popular after a seminal paper by \citet{KUZNETSOV1994}.
+Another choice of a killing function is the so-called dePillis-Radunskaya
+Law proposed by \citet{dePillis2014} for its better fits to the data. The law of mass action stemming from chemical reactions assumes well-mixed molecules, while the dePillis-Radunskaya
+Law is purely phenomenological. Both above choices have some merits over the other in different
 circumstances. The dePillis-Radunskaya Law is more likely to be a
-better choice than that based on the law of mass action when well-mixed
-assumption is less reasonable. Oftentimes, the data is not enough
-to draw a conclusion about which to choose. The selection usually depends on the preference
-of the modeler and is not often sufficiently justified. The difference in dynamics
+better choice than the law of mass action when well-mixed
+assumption is less applicable. Oftentimes, the data is not sufficient or the biological mechanism is not well understood to help make a choice. The selection usually depends on the preference
+of the modeler and is not often adequately justified. The difference in modeled dynamics
 as a result of choosing one functional form over the other is not
 clear. 
 
@@ -164,42 +157,34 @@ of the model. Particularly, we recognize enormous efforts devoted
 in modeling cancer immunotherapy with the goal to inform medical treatments
 while there is a lack of attention on modeling choice of some key
 model components. Cancer vaccine is inherently a personalized
-therapy. Personalization is often reflected in modeling as patient-specific
-parameters. Yet it is reasonable to expect parts of the cancer heterogeneity
-may be better accounted by differences in model structures (remove?).
-This has potential to explain the various levels of success of cancer
-vaccine in different patients and for different types of cancers. We
-hope that this paper will bring more awareness of potential opportunities
-and issues on this front. We believe that more mechanistic justification
-is needed for model selection although the killing of tumor by immune
-system is often modeled phenomenologically.
+therapy. We believe instead of modeling the killing of tumor cells phenomenologically as currently often done, more mechanistic justification
+is needed for model selection.
 
-The objective of this paper is to investigate analytically the consequence
-and implications offered by two choices of killing terms in a simple mathematical
+The objective of this paper is to investigate analytically the outcomes
+and implications of two different choices of cancer killing functions in a simple mathematical
 model of cancer vaccines. Specifically, we are interested in learning
-how the functional form of the killing term may lead to tumor elimination
+how the functional form of the killing rate may lead to model outcomes of tumor elimination
 or uncontrolled growth (i.e., tumor escapes the immune control). We present
 a model of a system of three ODEs
-including three species: vaccine peptides, activated T cells, tumor
-cells, as a simple alternative to the model proposed by \citet{Messan2021}. By a quasi-steady state (QSS), the system is further reduced
-to two equations. Our phase plane analysis and close-form analytical
-results offer clear biological interpretations, which complement the
+including three species: vaccine peptides, activated T cells and tumor
+cells, as a simple alternative to the model proposed by \citet{Messan2021}. Assuming a quasi-steady state (QSS), the system is further reduced
+to two ODEs. Our phase plane analysis and close-form analytical
+results offer clear biological interpretations, which complement
 the simulation-based study by \citet{Messan2021}. 
 
 The paper is organized as follows. In section \ref{sec:A-simplified-model},
-we introduce a simple mathematical model and make assumptions and approximations
-needed to prepare the system for analysis. In section \ref{sec:data}, a rudimentary data fitting and exploratory analysis are conducted, which motivate further mathematical analysis of the model. In section \ref{sec:Analysis-on-two},
+we introduce a simple mathematical model, assumptions and approximations made in this analysis. In section \ref{sec:data}, a rudimentary data fitting and exploratory analysis are conducted, which motivate further mathematical analysis of the model. In section \ref{sec:Analysis-on-two},
 we perform analysis of the reduced model to contrast the resulting
 difference in dynamics by the law of mass action verse the dePillis-Radunskaya
 Law killings. In section \ref{sec:Discussion}, we discuss the biological
-meaning implied by the two different killing terms, recognize the
+meaning implied by the two different killing functions, recognize the
 limitation in the current work and point out future directions. 
 
 
 
 \section{Model description \label{sec:A-simplified-model}}
 
-We propose a simple model as an alternative to the model by \cite{Messan2021} as follows
+We propose a three-species model inspired by the model by \cite{Messan2021} as follows
 \begin{subequations}\label{eq:3sp-model}
 \begin{eqnarray} 
 P' & = & D(A,T)T-\delta_{P}P+u(t)\label{eq:P'}\\
@@ -207,35 +192,51 @@ A' & = & a(P)-\delta A\label{eq:A'}\\
 T' & = & \beta T-mD(A,T)T\label{eq:T'}
 \end{eqnarray}
 \end{subequations}
-where prime($'$) indicates time derivative $\frac{d}{dt}$ (we will
+where prime ($'$) indicates time derivative $\frac{d}{dt}$ (we will
 use this shorthand notation for derivatives henceforth and the independent
 variable with respect to which the derivatives is taken should be
-clear in the context), $P, A$ and $T$ denote neoantigen peptides,
-activated T cells and tumor cells respectively. In comparison to \cite{Messan2021},
-the following simplification are assumed
+clear in the context). Let $P, A$ and $T$ denote neoantigen peptides,
+activated T cells and tumor cells, respectively. In comparison to \cite{Messan2021},
+the following simplification are made
 \begin{itemize}
-\item constant supply of naive cells is assumed \iffalse (to do: refs) \fi
-\item CD4+ and CD8+ T cells are lumped into one species, the activated T
+\item Assume constant supply of na\"ive cells is assumed \iffalse (to do: refs) \fi
+\item Lump CD4+ and CD8+ T cells into one species, the activated T
 cells 
-\item the detailed antigen presenting process by dendritic cells are left
-out and proliferation of activated T cells are modeled phenomenologically
+\item Leave out the detailed antigen presenting process by dendritic cells 
+\item Model proliferation of activated T cells are modeled phenomenologically
 as a function of $P$.
 \end{itemize}
+
+In this paper, we focus on two forms of killing function of tumor cells by activated T cells:
+\begin{itemize}
+\item the law of mass action $D(A,T)=A$;
+\item the dePillis-Radunskaya Law 
+\begin{equation}
+D(A,T)=\frac{(\frac{A}{T})^{n}}{k^{n}+(\frac{A}{T})^{n}}, \label{eq:PR law-1}
+\end{equation}
+which has a range $(0,1),$. 
+\end{itemize}
+
+Neoantigen peptides, whose dynamics is described by (\ref{eq:P'}), are assumed to have a production term $D(A,T)T$ as a result of of lysis of tumor cells which release neoantigen peptides\citep{Konstorum2017}. We do not specify a multiplying parameter in front of $D(A,T)T$ in
+(\ref{eq:P'}) because peptides $P$ are a latent variable in our data set and scaling
+can be applied to remove the multiplying parameter without loss of
+generality. Neoantigen peptides are assumed to have a natural decay rate $\delta_P$. The injection of vaccine peptides are modeled by time dependent function $u(t)$.
+
+The dynamics of activated T cells is described by (\ref{eq:A'}). The production term $a(P)$ models the differentiation of na\"ive T cells to activated T cells by the presence of Neoantigen peptides, $P$. Acknowledging that neoantigen peptides are processed and presented by antigen presenting dendritic cells to activate T cells and a variety of immune activation (IA) is involved in the process, for simplicity, we only consider T cell activation in this work. Our choice of $a(P)$ is a Hill function of the form   
+\begin{equation} \label{eq:hill-a(P)}
+a(P)=\phi P^{\lambda}/(s^{\lambda}+P^{\lambda}), 
+\end{equation}
+which is widely used to model activation in biology\citep{Somvanshi2013}. In (\ref{eq:hill-a(P)}), $\phi$ is the maximum level of activated T cell population that can be produced by the immune system, $s$ is the half-saturation constant quantifies the threshold concentration required for 50\% output response. The activated T cells are assumed to have a natural decay rate $\delta$.
+
+The dynamics of tumor cells is described by (\ref{eq:A'}). In absence of T cells, the growth of tumor cells, for simplicity, is assumed to be exponential with rate $\beta$. Through immunotherapy intervention, tumor cells are reduced at a rate $mD(A,T)$. We note that unbounded solution of tumor cell population may arise due to our choice of exponential growth, which can be clearly interpreted as failure of the treatment. 
+
+\begin{comment} %move to discussion?
 The term $D(A,T)T$ appears in both (\ref{eq:P'}) and (\ref{eq:T'}).
 In (\ref{eq:T'}), it represents the killing of tumor cells by the
 activated T cells. As a result of lysis of tumor cells, neoantigen
 peptides are released \citep{Konstorum2017} and hence it appears in
 (\ref{eq:P'}) as a production term. It is reasonable to require that
-$D(A,T)$ increases with $A$ and decreases with $T$. In this paper,
-we will focus on two forms of $D$
-\begin{itemize}
-\item the law of mass action $D(A,T)=A$;
-\item the dePillis-Radunskaya Law 
-\begin{equation}
-D(A,T)=\frac{(\frac{A}{T})^{n}}{k^{n}+(\frac{A}{T})^{n}}\label{eq:PR law-1}
-\end{equation}
-which has a range $(0,1)$. 
-\end{itemize}
+$D(A,T)$ increases with $A$ and decreases with $T$. 
 In absence of T cells, the growth of tumor cells is assumed to be exponential
 with rate $\beta$ . This is no doubt a simplification. In reality,
 tumor cells without interventions may undergo a stage of exponential
@@ -249,11 +250,11 @@ tumor growth \citep{Murphy2016}. Despite the popularity of other
 choices, it is frequent to find exponential growth being used to model
 tumor growth, which has merit in its simplicity. In our formulation,
 choosing exponential growth allows us to focus on the effects of different
-choices of killing terms. The consequence of unbounded solution of
+choices of killing functions. The consequence of unbounded solution of
 tumor population $T$ can clearly be interpreted as failure of the
 treatment or death of the patient. 
 
-In (\ref{eq:A'}), $a(P)$ models the conversion of the naive T cells
+In (\ref{eq:A'}), $a(P)$ models the conversion of the na\"ive T cells
 to the activated T cells when neoantigen peptides are present, which is
 one of the types of immune activation (IA) and the only one considered
 in this work. This is a simplification we take being aware of a well
@@ -261,29 +262,19 @@ known fact that neoantigen piptides need to be processed and presented
 by antigen presenting dendritic cells to activate T cells. It is reasonable
 to require that $a(P)$ increases with $P$. We start numerical experiments
 in MATLAB R2021a using Hill functions for IA, i.e. 
-\begin{equation} \label{eq:hill-a(P)}
-a(P)=\phi P^{\lambda}/(s^{\lambda}+P^{\lambda}), 
-\end{equation}
-which is widely used to model activation in biology.
 
 Naturally peptides decay as represented in our model with rate $\delta_{P}$.
-We do not specify a multiplying parameter in front of $D(A,T)T$ in
-(\ref{eq:P'}) because peptides $P$ are a latent variable in our data set and scaling
-can be applied to remove the multiplying parameter without loss of
-generality.
 
+\end{comment}
 
 
 \section{Data fitting and exploratory analysis} \label{sec:data}
-We first perform data fitting on the full model (\ref{eq:3sp-model}) with the law of mass action killing. Patient-specific parameters are estimated by minimizing residual sum of squares (RSS) on the same data set used by \cite{Messan2021}, which consists activated T cell counts of 6 patients treated with cancer vaccines. Here $\beta, \delta, s$ and $\phi$ are deemed to be patient-specific. Due to sparsity of data, especially that $P$ and $T$ are latent variables, it is not surprising to find other parameters unidentifiable.  Since the model lumps many intermediate biological processes and is phenomenological on its construction, it is unwise to attempt to look up the exact values for those parameters in the literature. We fix those parameters with our best guesses. In Fig. \ref{fig:data-fitting.}, we find the model fits the data reasonably well. Moreover, the model prediction shows patient 2 and 6 do not respond to the cancer vaccine well, which agrees with the observation that they both developed metastasis after the treatment. All parameters are reported in Table \ref{tab:parameters} as well as RSS in comparison to that of the model by \cite{Messan2021}. \cite{Messan2021} originally reported adjusted $R^2$. Due to the controversy of using $R^2$ as a metric for nonlinear models \citep{Spiess2010}, we convert their $R^2$ to RSS and find them  in par with ours (see last two rows of Table \ref{tab:parameters}). 
+We first perform data fitting on the full model (\ref{eq:3sp-model}) with the law of mass action killing. Patient-specific parameters are estimated by minimizing residual sum of squares (RSS) on the same data set used by \cite{Messan2021}, which consists activated T cell counts of 6 patients treated with cancer vaccines. Here $\beta, \delta, s$ and $\phi$ are deemed to be patient-specific. Due to sparsity of data, especially that $P$ and $T$ are latent variables, it is not surprising to find other parameters unidentifiable.  Since the model lumps many intermediate biological processes and is phenomenological on its construction, it is difficult to find the exact values of those parameters from the literature. We fix those parameters with our best guesses(?). The predicted tumor cell and activated T cell populations by the fitted model along with the observed T cell population are shown in Fig. \ref{fig:data-fitting.}. We find the model fits the data reasonably well. Moreover, the model prediction shows patient 2 and 6 do not respond to the cancer vaccine well, which agrees with the observation that they both developed metastasis after the treatment. All parameters are reported in Table \ref{tab:parameters} as well as RSS in comparison to that by \cite{Messan2021}. We converted \cite{Messan2021} reported adjusted $R^2$ to RSS, which we consider as a better metric for evaluating performance of nonlinear models \citep{Spiess2010}.
 
-We find that the model with the dePillis-Radunskaya Law killing fits the data equally well. While exploring the model behavior numerically, we find periodic solutions when using the law of mass action killing and tumor elimination sensitive to initial condition when using the dePillis-Radunskaya Law killing. These observations and the capability of our simple model in capturing the real data spur further mathematical analysis in understanding the model behavior and its biological implications, which is presented in the next section. A thorough and statistically principled data analysis, e.g. using mixed effect model approach for parameter estimation, is left for future investigation. 
-
-
+We find that the model with the dePillis-Radunskaya Law killing fits the data equally well. While exploring the model behavior numerically, we find periodic solutions when using the law of mass action killing and tumor elimination sensitive to initial condition when using the dePillis-Radunskaya Law killing. These observations and the capability of our simple model in capturing the real data spur further mathematical analysis in understanding the model behavior and its biological implications, which is presented in the next section. (move to discussion?)A thorough and statistically principled data analysis, e.g., using mixed effect model approach for parameter estimation, is left for future investigation. 
 
 \begin{figure}[h]
 \centerline{\includegraphics[width=0.7\paperwidth]{figs/pat1-6fitting}}\caption{Time course of model-simulated tumor population (sim. T) and activated T cell (sim. A) population and observed activated T cell (obs. A). Vertical bars indicate the time of cancer vaccine peptides. Tumor population and activated T cell population are scaled with tumor capacity reported by \citet{Messan2021} and the maximum observed T cell count respectively.  \label{fig:data-fitting.}}
-
 \end{figure}
 
 %\begin{figure}
@@ -311,12 +302,12 @@ We find that the model with the dePillis-Radunskaya Law killing fits the data eq
 \caption{\label{tab:parameters} Patient specific parameters estimated by minimizing residual sum of squares (RSS). The last row is RSS from the model by \cite{Messan2021}. Other parameters are fixed: $\delta_P=0.5,\phi=0.015,m=0.1,\lambda=2$. }
 \end{table}
 
-\section{Analysis on two types of killing terms\label{sec:Analysis-on-two}}
+\section{Analysis on two types of killing functions\label{sec:Analysis-on-two}}
 \subsection{Model reduction}
-The dynamics of peptides $P$ is at the molecular level and
+We want to reduce the system (\ref{eq:3sp-model}) to two equations, on which we can conduct phase analysis. We do so by noting that the dynamics of peptides $P$ is at the molecular level and
 is deemed to be much faster than the cellular dynamics of $A$ and $T$.
 This is also supported by parameter estimation by fitting to real
-patient data (Table \ref{tab:parameters}). Thus we make quasi-steady state (QSS)
+patient data (Table \ref{tab:parameters}). Quasi-steady state approximation is often applied in cases like this by assuming the fast variable equilibrates instantly to its `quasi-steady state' and thus becomes a function of slow variables by setting its time derivative to be zero. In our case, we make quasi-steady state (QSS)
 approximation for $P$ and conduct analysis in the next sections on
 the reduced system below
 \begin{subequations} \label{eq:2sp}
@@ -327,15 +318,17 @@ T' & = & \beta T-mD(A,T)T \label{eq:T'-1}
 \end{subequations}
 where we make $P=D(A,T)T$ in (\ref{eq:A'-1}). 
 
-To further simplifying analysis, we make another approximation that $a=\phi H(P-s)$
-where $H(\cdot)$ is the Heavside step function ($H(x)=0$ if $x<0$
-and $H(x)=1$ if $x\ge0$) (elaborate?). It is a limit of the Hill
-function (\ref{eq:hill-a(P)}) as $\lambda\to\infty$ and facilitates the analysis conducted
-in the next two sections. Approximating the Hill function by the Heaveside
+To further simplifying our analysis, we approximate the previous defined Hill function (\ref{eq:hill-a(P)}) with 
+\begin{equation} \label{eq:heaviside}
+a(P)=\phi H(P-s)
+\end{equation}
+where $H(\cdot)$ is the Heaviside step function ($H(x)=0$ if $x<0$
+and $H(x)=1$ if $x\ge0$) (elaborate?), which is the limit of the Hill
+function (\ref{eq:hill-a(P)}) as $\lambda\to\infty$. Approximating the Hill function by the Heaveside
 step function enables us to obtain analytical results that arise from
-the key anti-tumor mechanisms by T cells. This approximation
+the key anti-tumor mechanisms by the activated T cells. This approximation
 is frequently used in analyzing models of gene regulatory network
- \citep[e.g.][]{Glass1973,Mestl1995}. In \citet{Polynikis2009},
+ \citep[e.g.,][]{Glass1973,Mestl1995}. In \citet{Polynikis2009},
 cautions have been called in using this approximation. In modeling
 tumor growth, it has been used to model activation of tumor angiogenesis
 factor production as a function of tumor vasculature \citep{Stamper2007},
@@ -343,14 +336,14 @@ where the authors argued that the qualitative behavior was unchanged
 by this approximation. (To do: transition; details)
 
 With QSS approximation, we have a 2-dimensional system (\ref{eq:2sp}) that is suitable
-for phase plane analysis. On the phase plane, we let horizontal axis
+for phase plane analysis, which can yield qualitative results without explicit calculations. On the phase plane, we let horizontal axis
 represent $T$ and vertical axis represent $A$. We call the the curve
-$D(A,T)T=s$ immune activation (IA) curve, below which $A'<0$ (population
+$D(A,T)T=s$, where $s$ is the threshold (see (\ref{eq:heaviside})), immune activation (IA) curve, below which $A'<0$ (population
 of the activated T cells is decreasing) and above which $A'>0$ (population
-of the activated T cells is growing, i.e. the immune system is activated).
+of the activated T cells is growing, i.e., T cell activation surpasses its decay).
 Similarly, it is insightful to note that the curve $mD(A,T)T=\beta$
 separates the regions of  growing or decreasing of tumor cell population. We name
-$mD(A,T)T=\beta$ tumor receding (TR) curve. These two curves separate
+$mD(A,T)T=\beta$ tumor receding (TR) curve. These intersecting IA and TR curves separate
 the phase plane into four regions: 
 \begin{linenomath*}
 \begin{align*} 
@@ -369,7 +362,7 @@ with discontinuous RHS can be studied in a rigorous framework proposed
 by \citet{Filippov1988}. Filippov's theory is mostly useful
 in making sense of the solution when trajectories collide onto the
 discontinuity line. However, this does not happen for our model with
-either choice of the killing terms (this can be seen geometrically by looking
+either choice of the killing functions (this can be seen geometrically by looking
 at the general direction of the slope field with respect to the IA
 curve or algebraically verified by taking dot product of the normal
 vector and the slope vector). Similar dilemma also arises when the
@@ -711,7 +704,7 @@ uncontrolled tumor growth. }
 \section{Discussion\label{sec:Discussion}}
 
 To understand tumor-immune interaction, we introduce a simple model as
-an alternative to the one proposed by \citet{Messan2021}. Its simplisty allows us to investigate two common choices for the killing term analytically. By QSS argument,
+an alternative to the one proposed by \citet{Messan2021}. Its simplicity allows us to investigate two common killing functions analytically. By QSS argument,
 we reduce the model into two equations which are amendable to phase
 plane analysis. A further approximation is taken by replacing the
 Hill function representing activation of T cells in presence of neoantigen
