@@ -1,6 +1,7 @@
 \documentclass[review,authoryear]{elsarticle}
 
 \usepackage{lineno,hyperref,amsmath,amssymb,graphicx,tikz}
+\usepackage{array}
 \usepackage{comment}
 \usepackage{xcolor}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
@@ -56,30 +57,40 @@ of cancer vaccines}
 
 
 %% Group authors per affiliation:
-\author{Elsevier\fnref{myfootnote}}
-\address{Radarweg 29, Amsterdam}
-\fntext[myfootnote]{Since 1880.}
+%\author{Elsevier\fnref{myfootnote}, XX}
+%\address{Radarweg 29, Amsterdam}
+%\fntext[myfootnote]{Since 1880.}
 
 %% or include affiliations in footnotes:
-\author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
-\ead[url]{www.elsevier.com}
+%\author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
+%\ead[url]{www.elsevier.com}
 
-\author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
+\author[mymainaddress]{Lifeng Han}
+\author[mymainaddress]{Marisabel Rodriguez Messan}
+\author[mymainaddress]{Osman N. Yogurtcu}
+\author[mymainaddress]{Ujwani Nukala}
+\author[mymainaddress]{Hong Yang\corref{mycorrespondingauthor}}
 \cortext[mycorrespondingauthor]{Corresponding author}
-\ead{support@elsevier.com}
+\ead{hong.yang@fda.hhs.gov}
 
-\address[mymainaddress]{1600 John F Kennedy Boulevard, Philadelphia}
-\address[mysecondaryaddress]{360 Park Avenue South, New York}
+%\author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
+%\cortext[mycorrespondingauthor]{Corresponding author}
+%\ead{support@elsevier.com}
+
+\address[mymainaddress]{U.S. Food and Drug
+Administration}
+%\address[mysecondaryaddress]{360 Park Avenue South, New York}
+
+
 
 \begin{abstract}
 Cancer neoantigen vaccines have emerged as a promising approach to stimulate
-the immune system to fight cancer. We present a phase plane analysis
-of a simple model to understand immunological mechanisms of
+the immune system to fight cancer. We propose a simple model including key elements of cancer-immune interactions and conduct a phase plane analysis to understand immunological mechanisms of
 cancer neoantigen vaccines. Analytical results are obtained for
 two widely used functional forms that represent killing rate of tumor cells by immune cells:
 the law of mass action and the dePillis-Radunskaya Law. Using the law
-of mass action type killing rate function, our results reveal that a slowly growing tumor can escape the immune surveillance, and that there is a unique periodic solution. The dePillis-Radunskaya Law offers richer dynamics, for which tumor elimination and uncontrolled growth are both present. We show that tumor elimination depends
-on the ratio of initial population size of activated T cells to the malignant cell count, which lends support to using cancer vaccine
+of mass action killing rate function, our results reveal that a slowly growing tumor can escape the immune surveillance, and that there is a unique periodic solution. The dePillis-Radunskaya Law offers richer dynamics, for which tumor elimination and uncontrolled tumor growth are both present. We show that tumor elimination depends
+on the ratio of initial population size of the activated T cells to the malignant cell count, which lends support to using cancer vaccine
 as an adjuvant therapy after the primary tumor is surgically removed or treated using radiotherapy. We also derive a sufficient condition for uncontrolled tumor growth under the assumption of the dePillis-Radunskaya Law. The juxtaposition of analyses with these two different choices for the killing rate function highlights their importance on model behavior and biological implications, by which we hope to spur further theoretical and experimental work to understand mechanisms underlying different functional forms for the killing rate. 
 \end{abstract}
 
@@ -94,8 +105,8 @@ cancer vaccines \sep phase plane analysis \sep killing rate function
 
 \section{Introduction}
 
-The immune system plays an important role in controlling tumor growth
-and preventing or slowing malignant progression \citep{Waldman2020}. Innate and adaptive
+The role played by the immune system in controlling tumor growth
+and preventing or slowing malignant progression has been recognized since as early as the nineteenth century \citep[see a historical review by][]{oiseth2017cancer}. Innate and adaptive
 immune responses are two immune response types. The immune system may launch these responses when fighting against cancer. Malignant cells express non-synonymous mutations
 and produce tumor-specific antigens called neoantigens \citep{Peng2019}.
 Neoantigens presented by malignant cells can be recognized by the immune system triggering a cascade of adaptive
@@ -104,7 +115,7 @@ that target the tumor cells associated with the particular antigen.
 However, the immune response may not be naturally induced or the response may be insufficient to control tumor growth in some cancer patients \citep{Ward2016}. Immunotherapy aims to boost the human immune system to fight
 against cancer. With the advances in genome sequencing, the neoantigen
 cancer vaccine, designed to target specifically tumor cells
-by recognizing neoantigen, has emerged as a promising treatment. Specifically, the synthetic tumor-specific
+by recognizing neoantigens, has emerged as a promising treatment. Specifically, the synthetic tumor-specific
 peptides or peptide-coding ribonucleic acids are administered into patients to help activate immune cells in this novel therapy. Neoantigen cancer vaccination is highly personalized and has shown its advantage in avoiding auto-immune
 side effects \citep{Nelde2021} and achieving desirable clinical outcomes in
 treating different cancers
@@ -117,20 +128,19 @@ quantitative nature of mathematical models also makes them useful tools in progn
 
 On the topic of modeling immunotherapy or cancer immunology, the use of ordinary differential equations (ODEs) is arguably the most popular choice
 given their analytical or computational tractability
-\citep{Eftimie2010}. Due to complexity of the immune system, the published ODE models for cancer immunology often focus on certain aspects of it. One of the most important
+\citep{Eftimie2010}. Due to the complexity of the immune system, the published ODE models for cancer immunology often focus on certain aspects of it. One of the most important
 aspects is the interaction between the tumor and the immune system, especially
 how the immune system works to kill or control malignant cells. For example, predator-prey equations, which stem from the field of ecology, are often used to model the interaction between tumor cells (the prey) and immune effector cells (the predators) \citep{Hamilton2022}. The tumor growth is an important aspect to model. Many mathematical
 models have been developed to study tumor growth, as forms of exponential, logistic and Gompertizian
 growth \citep{Murphy2016}. Another important but less studied aspect is the killing of tumor cells
 by immune cells. The killing mechanisms have been modeled using
 the law of mass action, which became popular after a seminal paper by \citet{KUZNETSOV1994}.
-Another choice of a killing function is the so-called dePillis-Radunskaya
-Law proposed by \citet{Pillis2005} for its better fits to the mouse and human data. The law of mass action stemming from chemical reactions assumes well-mixed molecules, while the dePillis-Radunskaya
+Another choice of a killing rate function is the so-called dePillis-Radunskaya
+Law proposed by \citet{Pillis2005} for its better fit to mouse and human data. The law of mass action stemming from chemical reactions assumes well-mixed molecules, while the dePillis-Radunskaya
 Law is purely phenomenological. Each of the above two choices has its own merits over the other in different circumstances. The dePillis-Radunskaya Law is likely to be a
 better choice than the law of mass action when well-mixed
 assumption is less applicable. Oftentimes, the data is not sufficient or the biological mechanism is not well understood to help make a choice. The selection usually depends on the preference
-of the modeler and is not often adequately justified. The resulting difference in modeled dynamics for choosing one functional form over the other is not
-clear. 
+of the modeler and is not often adequately justified. The resulting difference in modeled dynamics for choosing one functional form over the other is not clear. 
 
 In dealing with the increasing complexity of mathematical models and growing
 needs to use them to inform decision-making for public health, \citet{Basu2013} urged that sensitivity analysis should
@@ -144,17 +154,17 @@ and implications of using the law of mass action versus the dePillis-Radunskaya
 Law for the tumor killing rate function in a simple mathematical
 model of cancer vaccines. Specifically, we are interested in learning
 how the functional form of the killing rate may lead to model outcomes of tumor elimination
-or uncontrolled growth (i.e., tumor escapes the immune control). We present
+or uncontrolled tumor growth (i.e., tumor escapes the immune control). We present
 a model of a system of ODEs including three species: neoantigen peptides, activated T cells and tumor cells, inspired by the model published by \citet{Messan2021}. Assuming a quasi-steady state (QSS) approximation for neoantigen peptides, the system is further reduced to a two-dimensional system. Our phase plane analysis and close-form analytical
-results from the reduced model offer some possible biological interpretations, which complement
-the simulation-based study by \citet{Messan2021}.  \red{To do: add references of phase plane. added in the analysis section}
+results from the reduced model offer direct biological interpretations, which complement
+the simulation-based study by \citet{Messan2021}.  
 
 This paper is organized as follows. In Section \ref{sec:A-simplified-model},
-we introduce a simple mathematical model, assumptions and approximations made in this analysis. In Section \ref{sec:data}, preliminary data fitting and exploratory analysis are conducted, which motivate further mathematical analysis of the model. In Section \ref{sec:Analysis-on-two},
+we introduce a simple mathematical model, assumptions and approximations to further analysis. In Section \ref{sec:data}, preliminary data fitting and exploratory analysis are conducted, which motivate mathematical analysis of the model. In Section \ref{sec:Analysis-on-two},
 we perform analysis of the reduced model to contrast the resulting
 difference in dynamics of tumor-immune interaction using the law of mass action versus the dePillis-Radunskaya
-Law killings for tumor killing functions. In Section \ref{sec:Discussion}, we discuss the biological
-meaning implied by the two different killing functions, the
+Law for the tumor killing rate functions. In Section \ref{sec:Discussion}, we discuss the biological
+meaning implied by the two different forms  of killing rate, the
 limitation in the current work and future research directions. 
 
 
@@ -164,8 +174,8 @@ We propose a three-species model inspired by the model published by \cite{Messan
 \begin{itemize}
 \item Activated CD4$^{+}$ and CD8$^{+}$ T cells are lumped into a single species, the activated T cells, and behave the same way biologically;
 \item The detailed antigen presenting process by dendritic cells is not considered;
-\item The activated T cells are derived from a constant supply of na\"ive cells in presence of neoantigen peptides derived from tumor cells, which is modeled phenomenologically as a function of $P$;
-\item The proliferation of T cells is independent of $P$ and can be lumped to the death term.
+\item The activated T cells are derived from a constant supply of na\"ive cells in the presence of neoantigen peptides derived from tumor cells, which is modeled phenomenologically as a function of the neoantigen peptide concentration;
+\item The proliferation of T cells is independent of the amount of neoantigen peptides.
 \end{itemize} 
 With the above simplifications, the dynamics of the three species are described by the equations below 
 \begin{subequations}\label{eq:3sp-model}
@@ -179,6 +189,19 @@ where $P, A$ and $T$ denote neoantigen peptides,
 activated T cells and tumor cells, respectively and the prime ($'$) indicates time derivative $\frac{d}{dt}$ (we will
 use this shorthand notation for derivatives henceforth and the independent variable with respect to which the derivatives is taken should be clear in the context). 
 
+Dynamics of neoantigen peptides are described by Eq. (\ref{eq:P'}) and it includes three terms: (1) increase number of neoantigen peptides that are released as a result of lysis of tumor cells $D(A,T)T$ \citep{Konstorum2017}, (2) natural decay of neoantigen peptides $\delta_P P$, and (3) administration of vaccine peptides modeled by a time dependent function $u(t)$. We do not specify a multiplying parameter in front of $D(A,T)T$ in
+(\ref{eq:P'}) because peptides $P$ is a latent variable in our data set and scaling
+can be applied to remove the multiplying parameter without loss of
+generality.  
+
+The dynamics of activated T cells is described by Eq. (\ref{eq:A'}). The term $a(P)$ models the activation of na\"ive T cells in the presence of neoantigen peptides, $P$. Acknowledging that neoantigen peptides are processed and presented by antigen presenting dendritic cells to activate T cells and a variety of immune activation (IA) processes are involved in this process; for simplicity, we only model T cell activation phenomenologically in this work. Our choice of $a(P)$ is a Hill function of the form   
+\begin{equation} \label{eq:hill-a(P)}
+a(P)=\phi P^{\lambda}/(s^{\lambda}+P^{\lambda}), 
+\end{equation}
+which is widely used to model upregulation of a certain quantity in response to a stimulus in biology \citep{Somvanshi2013}. In Eq. (\ref{eq:hill-a(P)}), $\phi$ is the maximum production rate of activated T cells, $s$ is the half-saturation constant quantifying the threshold of peptide concentration required for 50\% output response, and $\lambda$ is the Hill coefficient that characterizes the sensitivity of the response. The activated T cells are assumed to have a natural decay rate $\delta$.
+
+The dynamics of tumor cells is described by Eq. (\ref{eq:T'}). In absence of activated T cells, tumor cell population, for simplicity, is assumed to grow exponentially with rate $\beta$. Through immunotherapeutic intervention, tumor cells are reduced at a rate of $mD(A,T)$, where $m$ is the maximum killing rate. Recall that the term $D(A,T)T$ also appears in Eq. (\ref{eq:P'}) as neoantigen peptides released from lysis of tumor cells. We note that an unbounded solution for tumor cell population may arise due to our choice of exponential growth, which can be clearly interpreted as failure of the treatment. 
+
 In this paper, we focus on the function $D(A,T)$, representing the killing rate of tumor cells by activated T cells. We explore two alternative forms of this killing rate function:
 \begin{itemize}
 \item the law of mass action type of killing
@@ -191,19 +214,6 @@ D(A,T)=\frac{(\frac{A}{T})^{n}}{k^{n}+(\frac{A}{T})^{n}} \label{eq:PR law-1}
 \end{equation}
 which has a range $(0,1)$. 
 \end{itemize}
-
-Dynamics of neoantigen peptides is described by Eq. (\ref{eq:P'}) and it includes three terms: (1) $D(A,T)T$ as neoantigen peptides released as a result of lysis of tumor cells \citep{Konstorum2017}, (2) natural decay of neoantigen peptides $\delta_P P$, and (3) administration of vaccine peptides modeled by time dependent function $u(t)$. We do not specify a multiplying parameter in front of $D(A,T)T$ in
-(\ref{eq:P'}) because peptides $P$ is a latent variable in our data set and scaling
-can be applied to remove the multiplying parameter without loss of
-generality.  
-
-The dynamics of activated T cells is described by Eq. (\ref{eq:A'}). The term $a(P)$ models the activation of na\"ive T cells in the presence of neoantigen peptides, $P$. Acknowledging that neoantigen peptides are processed and presented by antigen presenting dendritic cells to activate T cells and a variety of immune activation (IA) processes are involved in this process; for simplicity, we only model T cell activation phonologically in this work. Our choice of $a(P)$ is a Hill function of the form   
-\begin{equation} \label{eq:hill-a(P)}
-a(P)=\phi P^{\lambda}/(s^{\lambda}+P^{\lambda}), 
-\end{equation}
-which is widely used to model upregulation of a certain quantity in response to a stimulus in biology \citep{Somvanshi2013}. In Eq. (\ref{eq:hill-a(P)}), $\phi$ is the maximum production rate of activated T cells, $s$ is the half-saturation constant quantifying the threshold peptide concentration required for 50\% output response, and $\lambda$ is the Hill coefficient that characterizes the sensitivity of the response. The activated T cells are assumed to have a natural decay rate $\delta$.
-
-The dynamics of tumor cells is described by Eq. (\ref{eq:T'}). In absence of activated T cells, tumor cell population, for simplicity, is assumed to grow exponentially with rate $\beta$. Through immunotherapeutic intervention, tumor cells are reduced at a rate of $mD(A,T)$, where $m$ is the maximum killing rate. Recall that the term $D(A,T)T$ also appears in Eq. (\ref{eq:P'}) as neoantigen peptides from lysis of tumor cells. We note that an unbounded solution for tumor cell population may arise due to our choice of exponential growth, which can be clearly interpreted as failure of the treatment. 
 
 \begin{comment} %move to discussion?
 The term $D(A,T)T$ appears in both (\ref{eq:P'}) and (\ref{eq:T'}).
@@ -244,35 +254,36 @@ in MATLAB R2021a using Hill functions for IA, i.e.
 
 
 \section{Data fitting and exploratory analysis} \label{sec:data}
-We first perform data fitting on the full model (\ref{eq:3sp-model}) with the law of mass action killing (\ref{eq:mass-action-killing}). Patient-specific parameters are estimated by minimizing residual sum of squares (RSS) for each patient's data separately. The data set used here is the same as in \cite{Messan2021}, which consists of activated T cell counts of six patients treated with personalized neoantigen cancer vaccines. Here $\beta, \delta, s$ and $\phi$ are considered to be patient-specific. Due to sparsity of data, especially because $P$ and $T$ are latent variables, it is not surprising to find other parameters unidentifiable.  Since the model lumps many intermediate biological processes and is phenomenological on its construction, it is difficult to find the exact values of those parameters from the literature. We manually set those parameters within order of magnitude based on the hypothesis that change of $P$ is on a much faster time scale than $A$ and $T$. The predicted tumor cell and activated T cell populations through data fitting along with the observed T cell population reported by \cite{Ott2017} are shown in Fig. \ref{fig:data-fitting.}. We find the model fits the data reasonably well. Moreover, the model prediction shows patients 2 and 6 do not respond to the cancer vaccine well, which is in agreement with the observation that these two patients developed metastasis after the initial vaccine regimen \citep{Ott2017}. All estimated model parameters are reported in Table \ref{tab:parameters} as well as RSS values in comparison to that by \cite{Messan2021}. We converted adjusted $R^2$ values reported in \cite{Messan2021} to RSS, which we consider as a better metric for evaluating performance of nonlinear models \citep{Spiess2010}. \red{(RSS to be removed?)}
+We first perform data fitting on the full model (\ref{eq:3sp-model}) with the law of mass action killing rate function (\ref{eq:mass-action-killing}). Patient-specific parameters are estimated by minimizing residual sum of squares (RSS) for each patient's data separately. The data set used here is the same as in \cite{Messan2021}, which consists of activated T cell counts of six patients treated with personalized neoantigen cancer vaccines reported by \cite{Ott2017}. Here $\beta,\, \delta,\, s$ and $\phi$ are considered to be patient-specific. Due to sparsity of data, especially because $P$ and $T$ are latent variables, it is suspected that other parameters could be unidentifiable.  Since the model lumps many intermediate biological processes and is phenomenological on its construction, it is difficult to find the exact values of those parameters from the literature. We heuristically set those parameters within reasonable order of magnitude based on the hypothesis that the change of $P$ is on a much faster time scale than $A$ and $T$. The predicted tumor cell and activated T cell populations through data fitting along with the observed T cell population are shown in Fig. \ref{fig:data-fitting.}. We find the model fits the data reasonably well. Moreover, the model prediction shows patients 2 and 6 do not respond to the cancer vaccine well, which is in agreement with the observation that these two patients developed metastasis after the initial vaccine regimen \citep{Ott2017}. All estimated model parameters are reported in Table \ref{tab:parameters} as well as RSS values in comparison to that by \cite{Messan2021}. We converted adjusted $R^2$ values reported in \cite{Messan2021} to RSS, which avoids the controversy of using $R^2$ as a metric for evaluating performance of nonlinear models \citep{Spiess2010}. 
 
 The dePillis-Radunskaya Law introduces two more parameters. With this extra flexibility, we find it not hard to get qualitatively similar fittings (comparable RSS) to that with the law of mass action killing function. Due to suspected issues of overfitting and parameter unidentifiability, we decide to not present the fittings to avoid misinterpretations on model comparison or selection. A thorough and statistically principled data analysis, e.g., using mixed effect model approach for parameter estimation, is left for future investigation. In this work, we choose to focus on understanding the model dynamics.
 
-During our numerical experiments with using different functional forms for $D(A,T)$, we observed different asymptotic model behaviors (Fig. \ref{fig:tentative}) such that periodic solutions are observed for the system (\ref{eq:3sp-model}) when the law of mass action type killing rate function is used. Also, when using the dePillis-Radunskaya Law, we found tumor elimination was sensitive to initial conditions of the system. These observations spur further mathematical analysis in understanding the model behavior and its biological implications due to different choices of functional form for $D(A,T)$, which is presented in the next section. 
+In our numerical experiments using different functional forms for $D(A,T)$, we observed different asymptotic model behaviors (Fig. \ref{fig:tentative}). Particularly, periodic solutions are observed for the system (\ref{eq:3sp-model}) when the law of mass action killing rate function is used. Also, when using the dePillis-Radunskaya Law, we found tumor elimination sensitive to initial conditions of the system. These observations spur further mathematical analysis in understanding the model behavior and its biological implications due to different choices of functional form for $D(A,T)$, which is presented in the next section. 
 
 \begin{figure}[!h]
-\centerline{\includegraphics[width=0.7\paperwidth]{figs/pat1-6fitting}}\caption{Time course of normalized model-simulated (with law of mass action type killing rate function (\ref{eq:mass-action-killing})) tumor population (sim. T) and activated T cell population (sim. A) and observed activated T cell (obs. A). Vertical bars indicate the administration time of cancer vaccine peptides into patients. Tumor population and activated T cell population are scaled with tumor capacity reported by \citet{Messan2021} and the maximum observed T cell count respectively.  \label{fig:data-fitting.}}
+\centerline{\includegraphics[width=0.7\paperwidth]{figs/pat1-6fitting}}\caption{Time course of normalized model-simulated (with law of mass action type killing rate function (\ref{eq:mass-action-killing})) tumor population (sim. T) and activated T cell population (sim. A) and observed activated T cell population (obs. A). Vertical bars indicate the administration time of cancer vaccine peptides into patients. Tumor population and activated T cell population are scaled with tumor capacity reported by \citet{Messan2021} and the maximum observed T cell count respectively.  \label{fig:data-fitting.}}
 \end{figure}
 
 \begin{figure}[h]
 \centerline{\includegraphics[width=0.3\paperwidth]{figs/time-course-PAT-periodic-DA-pat4}}
 \centerline{\includegraphics[width=0.3\paperwidth]{figs/time-course-PAT-tumor-escape-dePilis}\includegraphics[width=0.3\paperwidth]{figs/time-course-PAT-tumor-eliminate-dePilis}}
-\caption{ \label{fig:tentative} (tentative) we find periodic solutions (top) when using the law of mass action type killing rate function and tumor elimination sensitive to initial condition when using the dePillis-Radunskaya Law (bottom left: uncontrolled tumor growth; bottom left: tumor elimination)}
+\caption{ \label{fig:tentative} Interesting dynamics of neoantigen peptides (P), activated T cells (A) and tumor cells (T)  described by the full model (\ref{eq:3sp-model}): periodic solutions (top) when using the law of mass action killing rate function (\ref{eq:mass-action-killing}) and tumor elimination sensitive to initial condition when using the dePillis-Radunskaya Law (\ref{eq:PR law-1}) (bottom left: uncontrolled tumor growth; bottom right: tumor elimination)}
 \end{figure}
 
 \begin{table}[!t]
-\centerline{
-    \begin{tabular}{|c|l|l|l|l|l|l|}
+\begin{center}
+    \begin{tabular}{|m{2.0em}|l|l|l|l|l|l|}
     \hline
-        ~ & Patient 1 & Patient 2 & Patient 3 & Patient 4 & Patient 5 & Patient 6 \\ \hline
-        $\beta$  & 2.1521e-01 & 6.2241e-02 & 3.0000e-01 & 1.9441e-01 & 2.0484e-01 & 2.6810e-02 \\ \hline
-        $\delta$ & 1.3507e-02 & 1.6495e-03 & 2.7590e-03 & 6.5346e-03 & 3.2821e-02 & 3.8411e-03 \\ \hline
-        $s$      & 1.1362e-02 & 3.0248e-01 & 1.2712e-02 & 4.9532e-02 & 7.0630e-05 & 5.4276e-01 \\ \hline
-        $\phi$   & 1.5106e-02 & 8.0486e-03 & 1.6324e-02 & 1.5038e-02 & 1.8503e-02 & 1.3204e-02  \\ \hline \hline
-        RSS    & 1.1320e-01 & 1.9719e-02 & 1.0038e-01 & 7.2962e-02 & 1.4243e-01 & 8.4673e-03 \\ \hline
-      RSS by MRM  & 4.8800e-02 & 3.4333e-02 & 3.3667e-02 & 1.6000e-02 & 8.7000e-02 & 4.0800e-02 \\ \hline
-    \end{tabular}}
-\caption{\label{tab:parameters} Patient specific parameters estimated by minimizing residual sum of squares (RSS). The last row is RSS from the model by \cite{Messan2021}. (RSS to be removed?) Other parameters are fixed: $\delta_P=0.5,\phi=0.015,m=0.1,\lambda=2$. }
+         & Patient 1 & Patient 2 & Patient 3 & Patient 4 & Patient 5 & Patient 6 \\ \hline
+        $\beta$  & 2.152e-01 & 6.224e-02 & 3.000e-01 & 1.944e-01 & 2.048e-01 & 2.681e-02 \\ \hline
+        $\delta$ & 1.350e-02 & 1.649e-03 & 2.759e-03 & 6.534e-03 & 3.282e-02 & 3.841e-03 \\ \hline
+        $s$      & 1.136e-02 & 3.024e-01 & 1.271e-02 & 4.953e-02 & 7.063e-05 & 5.427e-01 \\ \hline
+        $\phi$   & 1.510e-02 & 8.048e-03 & 1.632e-02 & 1.503e-02 & 1.850e-02 & 1.320e-02  \\ \hline \hline
+        RSS     & 1.132e-01 & 1.971e-02 & 1.003e-01 & 7.296e-02 & 1.424e-01 & 8.467e-03 \\ \hline
+      RSS MRM & 4.880e-02 & 3.433e-02 & 3.366e-02 & 1.600e-02 & 8.700e-02 & 4.080e-02 \\ \hline
+    \end{tabular}
+\end{center}
+\caption{\label{tab:parameters} Patient specific parameters estimated by minimizing residual sum of squares (RSS). The last row is RSS from the model by \cite{Messan2021} (MRM). Other parameters are fixed: $\delta_P=0.5,\phi=0.015,m=0.1,\lambda=2$. }
 \end{table}
 
 \section{Phase plane analysis of the reduced model \label{sec:Analysis-on-two}}
@@ -294,13 +305,13 @@ To further simplify our analysis, we approximate the previously defined Hill fun
 \begin{equation} \label{eq:heaviside}
 a(P)=\phi H(P-s)
 \end{equation}
-where $H(\cdot)$ is the Heaviside step function (i.e., $H(P-s)=0$ if $P-s<0$
-and $H(P-s)=1$ if $P-s\ge0$), which is the limit of the Hill
-function (\ref{eq:hill-a(P)}) as $\lambda\to\infty$. Note that $s$ is now a hard activation threshold. Using this approximation further simplifies the analysis. 
+where $H(\cdot)$ is the Heaviside step function (i.e., $H(P-s)=0$ if $P<s$
+and $H(P-s)=1$ if $P \ge s$), which is the limit of the Hill
+function (\ref{eq:hill-a(P)}) as $\lambda\to\infty$. Note that $s$ is now a hard activation threshold. Using this approximation, the analysis simplifies further. 
 
 On the phase plane, we let horizontal axis
-represent $T$ and vertical axis represent $A$. As motivated by (\ref{eq:heaviside}), we call the curve
-$D(A,T)T=s$ the T cell activation (IA) curve. Here $s$ can be interpreted as a threshold of $P$ needed for IA. Below this IA curve, the population
+represent $T$ and vertical axis represent $A$. Motivated by (\ref{eq:heaviside}), we call the curve
+$D(A,T)T=s$ the immune activation (IA) activation curve. Here $s$ can be interpreted as a threshold of $P$ needed for IA. Below this IA curve, the population
 of the activated T cells is decreasing (i.e., $A'<0$) and above, the population
 of the activated T cells is growing (i.e., $A'>0$, T cell activation surpasses its decay).
 Similarly, it is insightful to note that the curve $mD(A,T)T=\beta$
@@ -324,7 +335,7 @@ with discontinuous RHS can be studied in a rigorous framework proposed
 by \citet{Filippov1988}. Filippov's theory is mostly useful
 in the understanding of the solution when trajectories collide onto the
 discontinuity line. However, this does not happen for our model with
-either choice of the killing functions (this can be seen geometrically by looking
+either choice of the forms for the killing rate functions (this can be seen geometrically by looking
 at the general direction of the slope field with respect to the IA
 curve or algebraically verified by taking dot product of the normal
 vector and the slope vector). Similar dilemma also arises when the
@@ -355,7 +366,7 @@ T cell growing & \rom{2} & \rom{3} \tabularnewline
 
 \caption{\label{tab:Four-regions}Four regions on the phase plane characterized
 by growing or decaying of tumor and activated T cell population. Note that since we only consider the invariant set $\Omega$,
-Region \rom{4} is defined to be bounded above by $\phi/\delta$. See also Figs. \ref{fig:DA-PP-4regions} and \ref{fig:dP-PP-4regions} (\red{remove this table?})}
+Region \rom{4} is defined to be bounded above by $\phi/\delta$. See also Figs. \ref{fig:DA-PP-4regions} and \ref{fig:dP-PP-4regions}.}
 \end{table}
 
 \subsection{Analysis on the two forms of the killing rate function}
@@ -369,7 +380,7 @@ T' & = & \beta T-mAT, \label{eq:T'-DA-above}
 \end{eqnarray}
 \label{eq:aboveAC}
 \end{subequations}
-and below the IA curve ($AT<s$)
+and below the IA curve ($AT<s$),
 \begin{subequations}
 \begin{eqnarray}
 A' & = & -\delta A\\
@@ -378,13 +389,13 @@ T' & = & \beta T-mAT. \label{eq:T'-DA-below}
 \label{eq:belowAC}
 \end{subequations}
 
-It is not hard to verify that any trajectory starting in $\Omega \equiv \{(T,A):T>0,0<A<\phi/\delta\}$ stays in $\Omega$ (i.e., $\Omega$ is an invariant set). Also note that $\phi / \delta$ is the maximum level of activated T cell that the immune system can sustain. We focus the following analysis on $\Omega$. Since $A<\phi/\delta$, it follows from Eqs. (\ref{eq:T'-DA-above}) and (\ref{eq:T'-DA-below}) that
+It is not hard to verify that any trajectory starting in \[\Omega \equiv \{(T,A):T>0,\,0<A<\phi/\delta\}\] stays in $\Omega$ (i.e., $\Omega$ is an invariant set). Also note that $\phi / \delta$ is the maximum level of activated T cell that the immune system can sustain. We focus the following analysis on $\Omega$. With $A<\phi/\delta$, it follows from Eqs. (\ref{eq:T'-DA-above}) and (\ref{eq:T'-DA-below}) that
 for $\beta > \frac{m\phi}{\delta}$, $T\to\infty$,
 which means tumor is growing whether the immune system is activated
 or not since the growth rate of tumor cells is larger than the maximum killing rate. The more interesting scenario is when $\beta<\frac{m\phi}{\delta}$,
 that is, the growth rate of tumor is less than the maximum killing
 rate achieved when the activated T cells reach their biological maximum
-level. This will be the underlying assumption in the following analysis on the law of mass action type killing rate function. 
+level. This will be the underlying assumption in the following analysis on the law of mass action killing rate function. 
 
 Assuming $\beta<\frac{m\phi}{\delta}$, on the phase plane a trajectory starting in Region \rom{3}
 enters Region \rom{4}, then enters Region \rom{1}, then enters Region \rom{2} as seen in Fig. \ref{fig:DA-PP-4regions}.
@@ -402,8 +413,8 @@ Thus,
 \begin{equation}
 AT=A_{0}T_{0}\exp((\beta-\delta)t-\frac{mA_{0}}{\delta}(1-e^{-\delta t})).
 \end{equation} 
-If $\beta<\delta$, $AT<A_{0}T_{0}<s$ for all $t>0$ and furthermore
-we have uncontrolled tumor growth $T\to\infty$, while the population of activated T cells is reduced critically (i.e., $A\to0$) as $t\to\infty$. This phenomenon that a small tumor manage to grow to a large size under the radar of immune surveillance is sometimes colloquially called `sneaking through' \citep{KUZNETSOV1994}.  \cite{George2018} reported sneaking through of a slow growing tumor, which is also observed in our
+If $\beta<\delta$, then $AT<A_{0}T_{0}<s$ for all $t>0$ and furthermore
+we have uncontrolled tumor growth (i.e., $T\to\infty$), while the population of activated T cells is reduced critically (i.e., $A\to0$) as $t\to\infty$. This phenomenon that a small tumor manage to grow to a large size under the radar of immune surveillance is sometimes colloquially called `sneaking through' \citep{KUZNETSOV1994}.  \cite{George2018} reported sneaking through of a slow growing tumor, which is also observed in our
 model. A trajectory representing a tumor sneaking through on the phase
 plane is shown in the right panel of Fig. \ref{fig:PP-DA}. 
 
@@ -416,14 +427,14 @@ the intersections with TR curve $A=\beta/m$ \iffalse (to do: or
 more precisely need to consider the tangential point $A_{4}^{*}$) \fi
 and the line $A=\phi / \delta$ (maximum level of active T cells).
 Note that any trajectory starting from this section traverses through Regions \rom{1}, \rom{2}, \rom{3} and \rom{4} and must
-return to this section. It follows that there is
-a fixed point by the fixed point theorem, which is equivalent to the existence of a periodic solution. 
+return to this section. By the Fixed Point theorem, it follows that there is
+a fixed point equivalent to the existence of a periodic solution. 
 
 Concerning the periodic solution of the system (\ref{eq:aboveAC}) and (\ref{eq:belowAC}), we can further show its uniqueness by explicit calculation. We state it as a theorem below.  
 \begin{theorem} \label{thm:unique}
 There is a unique periodic solution of the system (\ref{eq:aboveAC}) and (\ref{eq:belowAC})
 \end{theorem}
- The detailed proof is included in the appendix, in which we discover that the uniqueness of the periodic solution is equivalent to the uniqueness of solution to Eq. (\ref{eq:t1-period}). Moreover, Eq. (\ref{eq:t1-period}) can be readily
+ The detailed proof is included in the appendix, in which we discover that the uniqueness of the periodic solution is equivalent to the uniqueness of the solution to Eq. (\ref{eq:t1-period}). Moreover, Eq. (\ref{eq:t1-period}) can be readily
 solved numerically to give the length of a period given parameters
 as shown in Fig. (\ref{fig:Contour-plot-of-period}). It is interesting
 to notice that the period is independent from the threshold $s$.
@@ -435,22 +446,23 @@ The simple form of the mass action type of killing makes it possible to deduce a
 \begin{figure}
 \centerline{\includegraphics[width=1\linewidth]{figs/DA-colored-regions}}
 
-\caption{Four regions (\rom{1}, \rom{2}, \rom{3} and \rom{4}) on the phase plane of (\ref{eq:2sp}) with the law of mass action type of killing $D(A,T)=A$. The phase plane is divided by immune activation (IA) curve (solid red line) and tumor receding (TR) curve (dashed red line) into four regions, which are 
+\caption{Four regions (\rom{1}, \rom{2}, \rom{3} and \rom{4}) on the phase plane of the reduced model (\ref{eq:2sp}) of activated T cells (A) and tumor cells (T) with the law of mass action killing rate (\ref{eq:mass-action-killing}). The phase plane is divided by immune activation (IA) curve (solid red line) and tumor receding (TR) curve (dashed red line) into four regions, which are 
 shaded in different colors. The arrows indicate the direction of change in $A$ and $T$ on the phase plane. \label{fig:DA-PP-4regions}}
 \end{figure}
 
 \begin{figure}
 \centerline{\includegraphics[width=0.3\paperwidth]{figs/phase_plane_periodic_DA}\includegraphics[width=0.3\paperwidth]{figs/phase_plane_sneakthru_DA}}
-\caption{A exemplary trajectory (solid line) on the phase plane of (\ref{eq:2sp}) with the law of mass action killing $D(A,T)=A$. Left: a periodic solution exists if $\beta>\delta$;
-right:tumor sneak-through when $\beta<\delta$. \red{highlight the arrows with different color?}  \label{fig:PP-DA} }
+\caption{An exemplary trajectory (solid line) on the phase plane of the reduced model (\ref{eq:2sp}) of of activated T cells (A) and tumor cells (T) with the law of mass action killing rate (\ref{eq:mass-action-killing}). Left: a periodic solution exists if $\beta>\delta$;
+right:tumor sneak-through when $\beta<\delta$. 
+%\red{highlight the arrows with different color?}  
+\label{fig:PP-DA} }
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{figs/DA-period-contour}
-\caption{\label{fig:Contour-plot-of-period}Contour plot of period computed
-from (\ref{eq:t1-period}) using the law of mass action functional form. The period is dimensionless with time scale
-with $1/ \delta$. Same scale is applied to the parameter $\beta,m,\phi$. }
+\includegraphics[width=0.8\linewidth]{figs/DA-period-contour2}
+\caption{\label{fig:Contour-plot-of-period}Contour plot of the period computed
+from (\ref{eq:t1-period}) using the law of mass action type killing rate (\ref{eq:mass-action-killing}). The period is dimensionless with time scale $1/ \delta$. Same scale is applied to the parameter $\beta,\,m$ and $\phi$. }
 \end{figure}
 
 
@@ -461,7 +473,7 @@ function of the ratio $A/T$, in which $n$ describes how fast per capita
 killing rate turns on as the ratio of activated T cells versus tumor cells increases.
 The implications of $n$ on uncontrolled tumor growth will be derived later in this section.
 First, we note that the four regions and general direction of the vector field are same as before (Table \ref{tab:Four-regions}). But the shape of IA and TR curves are different. As in the previous section, we focus on the
-invariant set $\Omega=\{(T,A):T>0,0<A<\phi/d\}$. We assume $\beta<m$, i.e.,
+invariant set $\Omega \equiv \{(T,A):T>0,0<A<\phi/d\}$. We assume $\beta<m$, i.e.,
 the growth rate of tumor is smaller than the maximum killing rate.
 Otherwise, the tumor grows exponentially regardless of immune control.
 Even though we still have simple analytical solution of $A$, analytical
@@ -492,9 +504,9 @@ without bound for any initial condition in Region \rom{2}.
 
 Suppose the interaction of the IA and TR curves exists in $\Omega$. We can derive
 a sufficient condition for uncontrolled tumor growth. If the intersection
-is on the right to the minimum of the IA curve, then the minimum is above the line
+is on the right to the minimum of the IA curve, then the minimum is above the TR line
 and hence any trajectory starting in Region \rom{2} cannot cross the IA curve
-since $A$ is monotonically decreasing. Thus the sufficient condition
+since $A$ is monotonically decreasing. Thus, the sufficient condition
 of uncontrolled tumor growth is 
 \begin{linenomath*}
 \begin{equation}
@@ -505,7 +517,7 @@ Since we have assumed $m>\beta$, this condition is satisfied for sufficient larg
 Law favors uncontrolled tumor growth. Since $n$ also controls the tail of the Hill function, a better  interpretation may be that
 not enough killing at the low $A/T$ tail favors uncontrolled tumor growth. 
 
-Now consider a trajectory started in Region \rom{1} with $A(0)>\frac{n}{n-1}s$ (this extra constraint on the initial condition precludes the "pathological" case in which the trajectory goes to Region \rom{4}),
+Now consider a trajectory started in Region \rom{1} with $A(0)>\frac{n}{n-1}s$ (this extra constraint on the initial condition precludes the `pathological' case in which the trajectory goes to Region \rom{4}).
 Note that in Region \rom{1} both $A'<0$ and $T'<0$. We want to study whether we have $T\to0$ and under which conditions this occurs. Since (\ref{eq:PR law-1}) is not defined at $A=T=0$, we consider
 a transformation $x=A/T$, which gives  
 \begin{linenomath*}
@@ -520,19 +532,19 @@ Thus, the trajectory must enter Region \rom{2}. For $m>\delta+\beta$, it can
 be shown that 
 \begin{linenomath*}
 \[
-x_{1}^{*}=\frac{k}{(m/(\delta+\beta)-1)^{1/n}}
+x_{1}^{*} \equiv \frac{k}{(m/(\delta+\beta)-1)^{1/n}}
 \]
 \end{linenomath*}
  is an unstable fixed point of (\ref{eq:x' for dP}). Also note that
-$x_{1}^{*}>\frac{k}{(m/\beta-1)^{1/n}}$ , the slope of $\beta=mD(A,T)$.
+$x_{1}^{*}>\frac{k}{(m/\beta-1)^{1/n}}$ , the slope of the TR line ($\beta=mD(A,T)$).
 If $x(0)<x_{1}^{*}$, $x\to0$, in which case the trajectory enters
 Region \rom{2}. If $x(0)>x_{1}^{*},x\to\infty$, then the trajectory
-will not cross the line $\beta=mD(A,T)$ to enter Region \rom{2} and $T\to0$
+will not cross the TR line  to enter Region \rom{2} and $T\to0$
 faster than $A$ does. This is the case when the tumor is eliminated.
 The line $A=x_{1}^{*}T$ is the separatrix that divides these two cases
 as depicted in Fig. \ref{fig:dP-PP-sep}. In contrast with the law
-of mass action killing, the tumor can be completely eliminated under the
-dePillis-Radunskaya Law as long as the maximum killing is large enough
+of mass action killing rate, the tumor can be completely eliminated under the
+dePillis-Radunskaya Law as long as the maximum killing rate is large enough
 and the starting point is favorable, i.e. the tumor is not too large
 compared to the active T cell population. 
 
@@ -549,23 +561,22 @@ Since $A$ is monotonically increasing,
 x' & \le & x(\frac{\phi}{A_{0}}-\delta-\beta+\frac{mx^{n}}{k^{n}+x^{n}})\\
    & = & \frac{x}{k^{n}+x^{n}}((m+\frac{\phi}{A_{0}}-\delta-\beta)x^{n}-(\delta+\beta-\frac{\phi}{A_{0}})k^{n}).
 \end{eqnarray*}
-There are two conditions can be deduced from the above inequality, either of which is sufficient for the trajectory
-to enter Region \rom{2}: One is $\delta+\beta-\frac{\phi}{A_{0}}>m$; For $0<\delta+\beta-\frac{\phi}{A_{0}}<m$,
-$x_{3}^{*}=k(\frac{\delta+\beta-\phi/A_{0}}{m+\phi/A_{0}-\delta-\beta})^{1/n}$ is an unstable fixed point. Thus for a trajectory starting in Region \rom{3} with $A_0/T_0<x_{3}^{*}$,
+There are two conditions that can be deduced from the above inequality, either of which is sufficient for the trajectory
+to enter Region \rom{2}: (i) $\delta+\beta-\frac{\phi}{A_{0}}>m$; (ii) for $0<\delta+\beta-\frac{\phi}{A_{0}}<m$,
+$x_{3}^{*} \equiv k(\frac{\delta+\beta-\phi/A_{0}}{m+\phi/A_{0}-\delta-\beta})^{1/n}$ is an unstable fixed point. Thus for a trajectory starting in Region \rom{3} with $A_0/T_0<x_{3}^{*}$,
 it enters Region \rom{2}. A third sufficient condition can be deduced from the phase plane (Fig. \ref{fig:dP-PP-4regions}), if $T_0>\frac{\phi}{\delta k}(\frac{m}{\beta}-1)^{1/n}$, the trajectory must enter Region \rom{2}. 
 
-Also note that given $A_0$, $T_0$ can be chosen to make the initial point sufficiently close to the TR line so that the trajectory then crosses the line $\beta=mD(A,T)$
+Also note that given $A_0$, then $T_0$ can be chosen to make the initial point sufficiently close to the TR line so that the trajectory then crosses the line $\beta=mD(A,T)$
 to enter Region \rom{4}. Moreover, once in Region \rom{4} this trajectory continues to enter Region \rom{1}. In fact, any trajectory starting in Region \rom{4} enters Region \rom{1}. 
 
-We have gained biologically interpretable results by analyzing the system (\ref{eq:2sp}) with the dePillis-Radunskaya Law (\ref{eq:PR law-1}) region by region.  Of particular interests is that tumor elimination is possible, which is absent when using the mass action type killing functional form. The dependence of tumor elimination on the initial condition may have medical significance. We stop here and remark that an explicit global condition for this system is likely to be complicated if achievable. Further biological interpretation of our findings will be discussed in the next section.
+We have gained biologically interpretable results by analyzing the system (\ref{eq:2sp}) with the dePillis-Radunskaya Law (\ref{eq:PR law-1}) region by region.  Of particular interests is that tumor elimination is possible, which is absent when using the mass action killing functional form. The dependence of tumor elimination on the initial condition may have medical significance. We stop here and remark that an explicit global condition for this system is likely to be complicated if achievable. Further biological interpretation of our findings will be discussed in the next section.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.5\linewidth]{figs/dP-colored-regions-l}\includegraphics[width=0.5\linewidth]{figs/dP-colored-regions-r}}
 
 \caption{\label{fig:dP-PP-4regions}
-Four regions (\rom{1}, \rom{2}, \rom{3} and \rom{4}) on the phase plane of (\ref{eq:2sp}) with the the dePillis-Radunskaya Law (\ref{eq:PR law-1}). The phase plane is divided by immune activation (IA) curve (solid red line) and tumor receding (TR) curve (dashed red line) into four regions, which are 
-shaded in different colors. General directions of the slope field
-are indicated by arrows. Left: $\frac{m}{\beta}>\frac{n}{n-1}$
+Four regions (\rom{1}, \rom{2}, \rom{3} and \rom{4}) on the phase plane of the reduced model (\ref{eq:2sp}) of activated T cells (A) and tumor cells (T) with the the dePillis-Radunskaya Law (\ref{eq:PR law-1}). The phase plane is divided by immune activation (IA) curve (solid red line) and tumor receding (TR) curve (dashed red line) into four regions, which are 
+shaded in different colors. The arrows indicate the direction of change in $A$ and $T$ on the phase plane. Left: $\frac{m}{\beta}>\frac{n}{n-1}$
 is sufficient for tumor to sneak through; right: when $\frac{m}{\beta}<\frac{n}{n-1}$
 , it requires further investigation whether a trajectory will enter
 Region \rom{3} from Region \rom{2}. }
@@ -586,14 +597,14 @@ To understand tumor-immune system interactions, we introduce a simple model (\re
 calculations lead to meaningful characterization of the model behavior.
 The analytical results facilitate interpretation of the tumor
 progression or elimination as a consequence of the mechanisms assumed by the model.
-Particularly, for the law of mass action killing, we derived
+Particularly, for the law of mass action killing rate function, we derived
 that a necessary and sufficient condition
 for uncontrolled tumor growth is when the tumor growth rate is slower than the
-decaying rate of active T cells, i.e., $\beta<\delta$. This phenomenon is known as 'sneaking-through' in which slowly growing immunogenic tumors evade a potentially effective immune response \citet{bocharov2004underwhelming}. In the stochastic model proposed by \cite{George2018}, in which immune evasion mechanism was used as a dynamic threat to study tumor progression, it was also found that sneaking-through behavior results from evasion behavior under small tumor growth rate. Tumor `sneaking through' has been heavily studied theoretically
+decaying rate of active T cells, i.e., $\beta<\delta$. This phenomenon is known as `sneaking-through' in which slowly growing immunogenic tumors evade a potentially effective immune response \citet{bocharov2004underwhelming}. In the stochastic model proposed by \cite{George2018}, in which immune evasion mechanism was used as a dynamic threat to study tumor progression, it was also found that sneaking-through behavior results from evasion behavior under small tumor growth rate. Tumor `sneaking through' has been heavily studied theoretically
 and experimentally \citep[see e.g.][for a review]{Wilkie2013}. 
  Our model is based on the hypothesis that without medical intervention neoantigen peptides released by lysis of the tumor cells are the only signal that triggers immune response, and the tumor is likely evolving below the IA curve since the signal is weak. Cancer neoantigen vaccines may enhance the signal and trigger stronger immune response and thus provide an effective treatment for `sneaking through' tumors.   
 
-In comparison to the law of mass action killing, the dePillis-Radunskaya
+In comparison to the law of mass action killing rate, the dePillis-Radunskaya
 Law offers richer dynamics, nevertheless with a more challenging analysis. The
 dePillis-Radunskaya Law is essentially a ratio-dependent Hill function.
 Ratio-dependent functional responses have been the focus of plenty
@@ -602,14 +613,14 @@ immunology modeling. This work is a step to fill this gap. In approximating
 the Hill function in activation of T cells as a hard switch, we are
 able to focus on the switching speed of the Hill function employed
 in the dePillis-Radunskaya Law. A salient sufficient condition (\ref{eq:sneak-thru-cond}) for
-uncontrolled tumor growth is directly related to the Hill coeffcient $n$ in (\ref{eq:PR law-1}), which states that large $n$ enables
+uncontrolled tumor growth is directly related to the Hill coefficient $n$ in (\ref{eq:PR law-1}), which states that large $n$ enables
 uncontrolled tumor growth. It may be better to interpret this result as not
 enough killing at low $A/T$ tail makes uncontrolled growth possible.
-In contrast to the law of mass action killing for which asymptotic
+In contrast to the law of mass action killing rate for which asymptotic
 result does not depend on initial condition, under the dePillis-Radunskaya
-Law, tumor elimination is possible and may depend on the initial
+Law, tumor elimination is possible and depend on the initial
 condition. The dependence of tumor elimination on the initial condition may inform the necessity of medical intervention to get
-the patient into the favorable initial condition that may lead to
+the patient into the favorable initial condition that could lead to
 a cure. This finding supports the common medical practice
 that uses cancer vaccine as an adjuvant therapy after the primary
 tumor is reduced by surgery or radiotherapy.
@@ -622,8 +633,8 @@ is frequently used in analyzing models of gene regulatory network
 The choice of making peptides $P$ as the QSS variable is justified
 by the estimated parameter values and the belief that its dynamics on the molecular
 level is faster than dynamics on the cellular level on which $A$
-and $T$ operate. However, it is a key component as dosage of cancer
-vaccine is modeled as a time-dependent source term in (\ref{eq:P'}).
+and $T$ operate. However, it is a key model component as dosage of cancer
+vaccine is modeled as a time-dependent source term $u(t)$ in (\ref{eq:P'}).
 Treating $P$ as a QSS variable makes it impossible to study dosing
 explicitly in our reduced model. Nevertheless, it should be noted
 that continuous dosing, i.e., constant $u(t)$, is equivalent to a
@@ -632,7 +643,7 @@ constant dose is equivalent to lowering the threshold $s$ and vice versa. In cha
 play a role in most of the results we derived. But likely it is expected
 to be important biologically. First, we point out that it is indeed
 an important parameter in deciding if the IA and TR curves have an
-intersection when the the dePillis-Radunskaya Law is used. As higher
+intersection when the dePillis-Radunskaya Law is used. As higher
 dosage favors the inequality (\ref{eq:s<}), it assists in taking
 tumor back to control (crossing the TR line from below). Furthermore,
 even though $s$ does not appear in the conditions for asymptotic
@@ -647,7 +658,18 @@ the quantities that is of medical interests in comparison to the full
 model (\ref{eq:3sp-model}). It is left to a future study to investigate and
 overcome these issues. 
 
+\section*{Acknowledgments}
+The authors thank Professor Yang Kuang, Dr. Changhan He and Dr. Huy Dinh for helpful discussions.
 
+This project was supported in part by an appointment to
+the Research Participation Program at CBER, US Food and
+Drug Administration, administered by the Oak Ridge Institute for Science and Education through an interagency agreement between the US Department of Energy and FDA.
+
+\section*{Disclaimer}
+This article reflects the views of the authors and should not be construed to represent FDA’s
+views or policies. 
+
+The authors declare that they have no conflict of interest.
 
 \section*{Appendix}
 \subsection*{Proof of Theorem \ref{thm:unique}}
@@ -711,7 +733,7 @@ f(t_{1})=\frac{(e^{\gamma t_{1}}-1)(1-e^{-t_{1}})}{e^{\gamma t_{1}}-e^{-t_{1}}}.
 \end{equation}
 \end{linenomath*}
 It can be shown that $f'(t)>0$ and $f''(t)<0$ for all $t>0$ (see
-details of calculation in the appendix), and $\lim_{t\to0}f'(t)=\frac{\beta}{m\phi/\delta^{2}}>\frac{\beta-\delta}{m\phi/\delta^{2}}$.
+details of calculation in the next section of this appendix), and $\lim_{t\to0}f'(t)=\frac{\beta}{m\phi/\delta^{2}}>\frac{\beta-\delta}{m\phi/\delta^{2}}$.
 Moreover, $\lim_{t\to\infty}f(t)=1$. It follows that the periodic
 solution is unique.
 
@@ -735,6 +757,7 @@ we will focus the part of the numerator inside the parenthesis.
 \end{align*}
 where we used the fact $-a^{2}-b^{2}<-2ab$ and $x>1$. 
 
+\begin{comment}
 \subsection*{no pseudo-equilibrium for dePillis-Radunskaya Law (work in progress)}
 
 The IA curve $D(A,T)T=s$ has its normal vector $\mathbf{n}=(\frac{\partial D}{\partial T}T+D,\frac{\partial D}{\partial A}T)$
@@ -759,6 +782,7 @@ root $A_{4}^{*}$. Trajectory leaves R4 if $A>A_{4}^{*}$. Note that
 $A_{4}^{*}>\beta/m$ by verifying that $p(\beta/m)>0$. There is also
 a unique tangential point $A_{2}^{*}$ in R2 if $\beta>\delta$. Again
 let $x=AT$. We have $x'=x(\beta-\delta-mA)$. It follows that $A_{2}^{*}=\frac{\beta-\delta}{m}$. 
+\end{comment}
 
 \bibliography{export}
 
